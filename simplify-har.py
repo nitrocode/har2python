@@ -92,17 +92,20 @@ def simplify_har(har):
             )
         # check response
         # pdb.set_trace()
-        data = json.loads(entry['response']['content']['text'])
-        data_common.update(
-            find_common(
-                data, data_common, index=i,
-                loc=loc + '.response.content.text'
+        try:
+            data = json.loads(entry['response']['content']['text'])
+            data_common.update(
+                find_common(
+                    data, data_common, index=i,
+                    loc=loc + '.response.content.text'
+                )
             )
-        )
+        except (ValueError, KeyError):
+            pass
         # check url
         url = entry['request']['url'].replace(
             'https://workbench-rc.netprospex.com/api/v1/', ''
-        )  # .replace(queries, '')
+        )
         url_parts = url.split('/')
         data = {i: u for i, u in enumerate(url_parts)}
         data_common.update(
