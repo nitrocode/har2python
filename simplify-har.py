@@ -117,12 +117,23 @@ def simplify_har(har, guids_only=False):
     # TODO: when simplifying, should we prompt for each variable?
     #       '8b8c6778-e741-4855-abaa-78a8110b9f2d' used 6 times.
     #       Add name to this var and all following its value? [y/N]: y
-    # for k, v in data_common.iteritems():
-    #     if v['count'] > 1 and len(k) == 36:
-    #         # pdb.set_trace()
-    #         for l in v['locations']:
-    #             myloc = l['loc'].split('.')
-    #             myd = get_value_from_path(myloc, shar)
+    shar['log']['entries'] = []
+    if guids_only:
+        for k, v in data_common.iteritems():
+            # if v['count'] > 1 and len(k) in (32, 36):
+            if len(k) in (32, 36):
+                # pdb.set_trace()
+                for loc in v['locations']:
+                    try:
+                        entry = int(loc['loc'].split('.')[2])
+                    except:
+                        continue
+                    shar['log']['entries'].append(
+                        har['log']['entries'][entry].copy())
+                    # myd = get_value_from_path(locSplit, har)
+            # else:
+            #     print(k)
+            #     print(len(k))
     return data_common, shar
 
 
