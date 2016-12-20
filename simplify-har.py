@@ -51,8 +51,7 @@ def find_common(jsonData, common, index=0, loc=''):
     return newCommon
 
 
-def simplify_har(har):
-    """Use common patterns in json to replace values with names"""
+def simplify_har(har, guids_only=False):
     # simplified har
     shar = deepcopy(har)
     data_common = {}
