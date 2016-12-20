@@ -52,6 +52,22 @@ def find_common(jsonData, common, index=0, loc=''):
 
 
 def simplify_har(har, guids_only=False):
+    """Attempts to simplify a har file by analyzing for patterns
+
+    The function takes the following steps:
+
+    - Reads an entry
+        - scans POST data
+        - scans GET data
+        - scans response body
+        - scans URL
+
+
+    :param har: har json data
+    :param guids_only: only return values between 32 and 36 chars
+    :returns: data_common which contains a dict of values as keys and
+              simplified_har which is a dict containing the interested entries
+    """
     # simplified har
     shar = deepcopy(har)
     data_common = {}
@@ -139,6 +155,10 @@ def simplify_har(har, guids_only=False):
 
 def main(args):
     with args.filename as f:
+    """Main function that only takes args as input
+
+    :param args: parsed args from argparse
+    """
         try:
             har_data = json.loads(f.read())
         except TypeError:
