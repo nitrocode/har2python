@@ -142,7 +142,7 @@ def main(args):
     ]
     data = None
 
-    common, shar = simplify_har(har_data)
+    common, shar = simplify_har(har_data, guids_only=args.guids_only)
     print("Finished simplifying")
     pdb.set_trace()
 
@@ -177,5 +177,7 @@ if __name__ == "__main__":
     parser.add_argument("-i", dest="filename", required=True,
                         help="input har file", metavar="FILE",
                         type=lambda x: is_valid_file(parser, x))
+    parser.add_argument("-g", "--guids-only", action='store_true',
+                        help="grab strings between 32 and 36 chars")
     args = parser.parse_args()
     main(args)
