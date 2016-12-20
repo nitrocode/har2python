@@ -198,11 +198,15 @@ def is_valid_file(parser, arg):
     """Verifies if an input file is valid.
 
     Source: http://stackoverflow.com/a/11541450
+
+    :param parser: ArgumentParser
+    :param arg: file name to test
+    :returns: an open file handle
     """
     if not os.path.exists(arg):
         parser.error("The file %s does not exist!" % arg)
     else:
-        return open(arg, 'r')  # return an open file handle
+        return open(arg, 'r')
 
 
 if __name__ == "__main__":
