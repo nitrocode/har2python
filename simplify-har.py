@@ -154,15 +154,15 @@ def simplify_har(har, guids_only=False):
 
 
 def main(args):
-    with args.filename as f:
     """Main function that only takes args as input
 
     :param args: parsed args from argparse
     """
+    with args.input_file as f:
         try:
             har_data = json.loads(f.read())
         except TypeError:
-            print("The file '{0}' is not valid JSON.".format(args.filename))
+            print("The file '{0}' is not valid JSON.".format(args.input_file))
             return None
 
     code = [
@@ -173,6 +173,9 @@ def main(args):
     data = None
 
     common, shar = simplify_har(har_data, guids_only=args.guids_only)
+    if args.output_file:
+        with open(args.output_file, "wb") as f:
+            f.write(json.dumps(shar))
     print("Finished simplifying")
     pdb.set_trace()
 
@@ -204,9 +207,11 @@ def is_valid_file(parser, arg):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Analyzer HAR files')
-    parser.add_argument("-i", dest="filename", required=True,
+    parser.add_argument("-i", "--input", dest="input_file", required=True,
                         help="input har file", metavar="FILE",
                         type=lambda x: is_valid_file(parser, x))
+    parser.add_argument("-o", "--output", dest="output_file", required=True,
+                        help="output har file")
     parser.add_argument("-g", "--guids-only", action='store_true',
                         help="grab strings between 32 and 36 chars")
     args = parser.parse_args()
