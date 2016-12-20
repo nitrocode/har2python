@@ -2,6 +2,7 @@
 import json
 import argparse
 import os.path
+from copy import deepcopy
 # from curl2py import create_request
 import pdb
 
@@ -53,7 +54,7 @@ def find_common(jsonData, common, index=0, loc=''):
 def simplify_har(har):
     """Use common patterns in json to replace values with names"""
     # simplified har
-    shar = har.copy()
+    shar = deepcopy(har)
     data_common = {}
 
     # find common entries
