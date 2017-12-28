@@ -7,27 +7,27 @@
 
     Example dictionary:
 
-    variable_values = {
-        'aaaaaaaaaaaaaaaaaaguid': {
-            'count': 5
-            'locations': [
-                # request num index can be used to find the original request
-                #   which will contain the method, url, etc
-                # in json response -- note: resp=true
-                {
-                    'index': 3,
-                    'loc': 'data.object.project_guid'
-                },
-                # fed into query
-                {
-                    'index': 6,
-                    'loc': '...'
-                }
-                ...
-            ]
-        },
-        'someotherguidaaaaaaaaaa': {...},
-    }
+        variable_values = {
+            'aaaaaaaaaaaaaaaaaaguid': {
+                'count': 5
+                'locations': [
+                    # request num index can be used to find the original request
+                    #   which will contain the method, url, etc
+                    # in json response -- note: resp=true
+                    {
+                        'index': 3,
+                        'loc': 'data.object.project_guid'
+                    },
+                    # fed into query
+                    {
+                        'index': 6,
+                        'loc': '...'
+                    }
+                    ...
+                ]
+            },
+            'someotherguidaaaaaaaaaa': {...},
+        }
 
 3. Recreate har
 
